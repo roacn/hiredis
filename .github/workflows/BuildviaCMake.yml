@@ -13,6 +13,7 @@ jobs:
       matrix:
         configration: [release, debug]
         build_shared_libs: [shared, static]
+        arch: [x64, win32]
 
     steps:
       - uses: microsoft/setup-msbuild@main
@@ -30,9 +31,9 @@ jobs:
         id: build
         run: |
           if ( "${{ matrix.configration }}" -eq "release" ) {
-            MSBuild hiredis.vcxproj /p:Configuration=Release
+            MSBuild hiredis.vcxproj /p:Configuration=Release /p:Platform=${{ matrix.configration }}
           } else {
-            MSBuild hiredis.vcxproj /p:Configuration=Debug
+            MSBuild hiredis.vcxproj /p:Configuration=Debug /p:Platform=${{ matrix.configration }}
           }
 
       - name: Prepare Upload
