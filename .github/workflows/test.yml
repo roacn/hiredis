@@ -1,11 +1,12 @@
 name: C/C++ CI
 
 on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
-
+  #push:
+    #branches: [ master ]
+  #pull_request:
+    #branches: [ master ]
+  workflow_dispatch:
+  
 jobs:
   full-build:
     name: Build all, plus default examples, run tests against redis
