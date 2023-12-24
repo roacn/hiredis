@@ -54,7 +54,7 @@ jobs:
         if: steps.build.outcome == 'success'
         uses: ncipollo/release-action@main
         with:
-          name: windows-${{ matrix.arch }}-hiredis-${{ matrix.configration }}-${{ matrix.build_shared_libs }}
+          name: windows-${{ matrix.arch }}-${{ matrix.configration }}-${{ matrix.build_shared_libs }}
           tag: windows-${{ matrix.arch }}-${{ matrix.configration }}-${{ matrix.build_shared_libs }}
           token: ${{ secrets.GITHUB_TOKEN }}
           allowUpdates: true
@@ -66,6 +66,6 @@ jobs:
         if: steps.build.outcome == 'success'
         uses: actions/upload-artifact@v3
         with:
-          name: "windows-${{ matrix.arch }}-hiredis-${{ matrix.configration }}-${{ matrix.build_shared_libs }}"
+          name: "windows-${{ matrix.arch }}-${{ matrix.configration }}-${{ matrix.build_shared_libs }}"
           path:  |
             ${{ github.workspace }}
