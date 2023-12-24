@@ -22,9 +22,9 @@ jobs:
       - name: Run CMake
         run: |
           if ( "${{ matrix.build_shared_libs }}" -eq "shared" ) {
-            cmake -Wno-dev CMakeLists.txt
+            cmake -A ${{ matrix.arch }} -Wno-dev CMakeLists.txt
           } else {
-            cmake -Wno-dev CMakeLists.txt -DBUILD_SHARED_LIBS=OFF
+            cmake -A ${{ matrix.arch }} -Wno-dev CMakeLists.txt -DBUILD_SHARED_LIBS=OFF
           }
           
       - name: Build Hiredis
