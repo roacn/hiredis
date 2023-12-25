@@ -13,18 +13,28 @@ jobs:
       matrix:
         configration: [release, debug]
         build_shared_libs: [shared, static]
-        arch: [x64, win32]
+        arch: [x64, x86]
 
     steps:
       - uses: microsoft/setup-msbuild@main
+        with:
+          msbuild-architecture: ${{ matrix.arch }}
       - uses: actions/checkout@v4
       
       - name: Run CMake
         run: |
           if ( "${{ matrix.build_shared_libs }}" -eq "shared" ) {
-            cmake -A ${{ matrix.arch }} -Wno-dev CMakeLists.txt
+            if ( "${{ matrix.arch }}" -eq "x64" ) {
+              cmake -A x64 -Wno-dev CMakeLists.txt
+            } else {
+              cmake -A win32 -Wno-dev CMakeLists.txt
+            }
           } else {
-            cmake -A ${{ matrix.arch }} -Wno-dev CMakeLists.txt -DBUILD_SHARED_LIBS=OFF
+            if ( "${{ matrix.arch }}" -eq "x64" ) {
+              cmake -A x64 -Wno-dev CMakeLists.txt -DBUILD_SHARED_LIBS=OFF
+            } else {
+              cmake -A win32 -Wno-dev CMakeLists.txt -DBUILD_SHARED_LIBS=OFF
+            }
           }
           
       - name: Build Hiredis
